@@ -1,0 +1,27 @@
+import "tfplan/v2"
+import "strings"
+
+# Function to check if the rule matches the allowed port and CIDR block criteria
+allowed_sg_rule = func(sg_rule) {
+  sg_rule.type is "ingress" and
+  sg_rule.cidr_blocks contains "0.0.0.0/0" and
+  sg_rule.from_port == 443 and
+  sg_rule.to_port == 443 and
+  sg_rule.protocol == "tcp"
+}
+
+# Get all security group rules from the plan
+all_sg_rules = filter tfplan.resource_changes as rc {
+  rc.type == "aws_security_group_rule" and
+  (rc.change.actions contains "create" or rc.change.actions contains "update")
+}
+
+# Check that all security group rules meet the criteria
+valid_sg_rules = all all_sg_rules as sg_rule {
+  allowed_sg_rule(sg_rule.change.after)
+}
+
+# Define the main rule for the Sentinel policy
+main = rule {
+  valid_sg_rules
+}
