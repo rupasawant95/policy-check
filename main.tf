@@ -21,7 +21,4 @@ resource "aws_security_group" "terr-inc" {
     cidr_blocks = ["10.0.0.0/32"]
   }
 
-  tags = {
-    Name = "terra_security_group"
-  }
 }
