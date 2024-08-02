@@ -10,3 +10,18 @@ resource "aws_instance" "terr-inc" {
     Name = "Sentinel-check"
   }
 }
+
+resource "aws_security_group" "terr-inc" {
+  description = "Example security group"
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "terra_security_group"
+  }
+}
