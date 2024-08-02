@@ -6,9 +6,7 @@ provider "aws" {
 resource "aws_instance" "terr-inc" {
   ami             = "ami-074be47313f84fa38"
   instance_type   = "t2.micro"
-  tags = {
-    Name = "Sentinel-check"
-  }
+  
 }
 
 resource "aws_security_group" "terr-inc" {
@@ -20,5 +18,7 @@ resource "aws_security_group" "terr-inc" {
     protocol    = "tcp"
     cidr_blocks = ["10.0.0.0/32"]
   }
-
+  tags = {
+    Name = "terra_security_group"
+  }
 }
