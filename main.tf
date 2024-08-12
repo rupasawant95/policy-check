@@ -25,6 +25,9 @@ continuous_validation_check = rule {
         instance.change.after.instance_type is "t2.small" or instance.change.after.instance_type is "t2.medium"
     }
 }
+main = rule {
+    continuous_validation_check
+}
   tags = {
     Name = "terra_security_group"
   }
