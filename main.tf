@@ -20,14 +20,6 @@ resource "aws_security_group" "terr-inc" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-continuous_validation_check = rule {
-    all ec2_instances as _, instance {
-        instance.change.after.instance_type is "t2.small" or instance.change.after.instance_type is "t2.medium"
-    }
-}
-main = rule {
-    continuous_validation_check
-}
   tags = {
     Name = "terra_security_group"
   }
