@@ -4,12 +4,12 @@ check "instance_type_validation" {
   }
 
   assert {
-    condition     = all tfplan.instance as instance { instance.applied.instance_type != "t2.small" }
+    condition     = all aws.instance as instance { instance.applied.instance_type != "t2.small" }
     error_message = "Instance type is 'small'. Validation check failed."
   }
 
   assert {
-    condition     = any tfplan.instance as instance { instance.applied.instance_type == "t2.medium" }
+    condition     = any aws.instance as instance { instance.applied.instance_type == "t2.medium" }
     error_message = "No instance of type 'medium' found. Validation check failed."
   }
 }
