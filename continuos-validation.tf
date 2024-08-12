@@ -1,5 +1,5 @@
 check "instance_type_validation" {
-  data "tfplan" "instance" {
+  data "aws" "instance" {
     resources = "aws_instance"
   }
 
