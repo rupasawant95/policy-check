@@ -4,16 +4,12 @@ check "instance_type_validation" {
   }
 
   assert {
-    condition = all tfplan.instance as instance {
-      instance.applied.instance_type != "t2.small"
-    }
-    error_message = "Instance type is 'small'. Continuous validation check failed."
+    condition     = all tfplan.instance as instance { instance.applied.instance_type != "t2.small" }
+    error_message = "Instance type is 'small'. Validation check failed."
   }
 
   assert {
-    condition = any tfplan.instance as instance {
-      instance.applied.instance_type == "t2.medium"
-    }
-    error_message = "No instance of type 'medium' found. Continuous validation check failed."
+    condition     = any tfplan.instance as instance { instance.applied.instance_type == "t2.medium" }
+    error_message = "No instance of type 'medium' found. Validation check failed."
   }
 }
